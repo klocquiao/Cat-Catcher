@@ -23,19 +23,22 @@
             android:id="@+id/startButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/start_button" />
+            android:text="@string/start_button"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/optionButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/setting_button" />
+            android:text="@string/setting_button"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/helpButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/help_button" />
+            android:text="@string/help_button"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -53,7 +56,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="casual"
         android:text="@string/main_menu"
-        android:textSize="34sp"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,8 +65,9 @@
         android:id="@+id/MainMenuImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/cat_picture"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/Tado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
