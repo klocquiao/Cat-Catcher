@@ -4,31 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WelcomeActivity">
+    tools:context=".MainMenuActivity"
+    android:background="@drawable/background">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.Cmpt276Ass3.AppBarOverlay">
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMainMenu">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <Button
+            android:id="@+id/startButton"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.Cmpt276Ass3.PopupOverlay" />
+            android:layout_height="match_parent"
+            android:text="@string/start_button"
+            android:textSize="16sp" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <Button
+            android:id="@+id/optionButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/setting_button"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/startGameButton"
+        <Button
+            android:id="@+id/helpButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/help_button"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/txtMainMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="casual"
+        android:text="@string/main_menu"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/MainMenuImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/Tado"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/txtMainMenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
