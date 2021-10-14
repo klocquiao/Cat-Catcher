@@ -25,19 +25,13 @@ public class GameActivity extends AppCompatActivity {
     private static final int NUM_ROWS = 3;
     private static final int NUM_COLS = 3;
     Button cellArray[][] = new Button[NUM_ROWS][NUM_COLS];
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityGameBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityGameBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+        setContentView(R.layout.activity_game);
         populateButtons();
-
-
     }
 
     private void populateButtons() {
