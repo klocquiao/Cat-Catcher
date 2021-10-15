@@ -23,7 +23,6 @@ public class Game {
         minesFound = 0;
         scansPerformed = 0;
 
-
         shuffleFieldValues();
         populateField();
     }
@@ -75,6 +74,7 @@ public class Game {
         }
         return NO_MINE;
     }
+
     public void scan(int row, int column) {
         int totalNearbyMines = 0;
         for (int i = 0; i < numberOfColumns; i++) {

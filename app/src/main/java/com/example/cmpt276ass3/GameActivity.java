@@ -1,6 +1,7 @@
 package com.example.cmpt276ass3;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.cmpt276ass3.databinding.ActivityGameBinding;
@@ -78,6 +81,7 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         cellButtonClicked(FINAL_ROW, FINAL_COL);
+
                     }
                 });
 
@@ -113,6 +117,7 @@ public class GameActivity extends AppCompatActivity {
             newGame.getCell(row, col).cleanMine();
             updateScannedCells(row, col);
             updateNumberOfMinesText();
+            checkWinner();
         }
         else {
             int cellValue = newGame.getCell(row, col).getNumberOfNearbyMines();
@@ -120,7 +125,6 @@ public class GameActivity extends AppCompatActivity {
             button.setEnabled(false);
             updateNumberOfScansText();
         }
-
     }
 
     private void updateScannedCells(int row, int col) {
@@ -160,6 +164,14 @@ public class GameActivity extends AppCompatActivity {
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
         Resources resource = getResources();
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+    }
+
+    private void checkWinner() {
+        if (newGame.getMinesFound() == NUM_MINES) {
+            FragmentManager manager = getSupportFragmentManager();
+            GameFragment dialog = new GameFragment();
+            dialog.show(manager, "WinnerDialog");
+        }
     }
 
     public static Intent newIntent(Context c) {
