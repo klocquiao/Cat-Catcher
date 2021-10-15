@@ -73,7 +73,6 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         cellButtonClicked(FINAL_ROW, FINAL_COL);
-                        button.setEnabled(false);
                     }
                 });
 
@@ -102,37 +101,41 @@ public class GameActivity extends AppCompatActivity {
     private void cellButtonClicked(int row, int col) {
         Button button = cellArray[row][col];
 
-        //Lock button sizes
         lockButtonSize();
 
-        if (newGame.reveal(row, col) == Game.MINE) {
+        if (newGame.reveal(row, col, false) == Game.MINE) {
             button.setText("Found!");
+            newGame.getCell(row, col).cleanMine();
             updateScannedCells(row, col);
         }
         else {
-            int cellValue = newGame.scan(row, col);
+            int cellValue = newGame.getCell(row, col).getNumberOfNearbyMines();
             button.setText(Integer.toString(cellValue));
+            button.setEnabled(false);
         }
 
     }
 
     private void updateScannedCells(int row, int col) {
         for (int i = 0; i < NUM_COLS; i++) {
+            newGame.scan(row, i);
             Button cell = cellArray[row][i];
             String cellText = cell.getText().toString();
             if (cellText != "x" && cellText != "0" && cellText != "Found!") {
-                int cellValue = Integer.parseInt(cellText) - 1;
+                int cellValue = newGame.getCell(row, i).getNumberOfNearbyMines();
                 cell.setText(Integer.toString(cellValue));
             }
         }
         for (int i = 0; i < NUM_ROWS; i++) {
+            newGame.scan(i, col);
             Button cell = cellArray[i][col];
             String cellText = cell.getText().toString();
             if (cellText != "x" && cellText != "0" && cellText != "Found!") {
-                int cellValue = Integer.parseInt(cellText) - 1;
+                int cellValue = newGame.getCell(i, col).getNumberOfNearbyMines();
                 cell.setText(Integer.toString(cellValue));
             }
         }
+
     }
 
     private void scaleImageToCell(Button button) {
