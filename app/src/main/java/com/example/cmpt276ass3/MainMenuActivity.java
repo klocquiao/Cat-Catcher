@@ -9,13 +9,18 @@ import android.view.View;
 
 import android.widget.Button;
 
+import com.example.cmpt276ass3.model.Settings;
+
 public class MainMenuActivity extends AppCompatActivity {
+
+    private Settings gameSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        gameSettings.getInstance(this);
 
         startGame();
         startOption();
