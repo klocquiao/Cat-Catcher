@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game {
-    private static final Boolean MINE = true;
-    private static final Boolean NO_MINE = false;
+    public static final Boolean MINE = true;
+    public static final Boolean NO_MINE = false;
     private static int numberOfRows;
     private static int numberOfColumns;
     private static int numberOfMines;
@@ -21,6 +21,7 @@ public class Game {
         this.numberOfColumns = numberOfColumns;
         this.numberOfMines = numberOfMines;
         minesFound = 0;
+        scansPerformed = 0;
 
         shuffleFieldValues();
         populateField();
@@ -28,7 +29,8 @@ public class Game {
 
     private void shuffleFieldValues() {
         int minesInField = 0;
-        while(shuffler.size() < numberOfColumns * numberOfRows) {
+        int currentSize = 0;
+        while(currentSize < numberOfColumns * numberOfRows) {
             if (minesInField < numberOfMines) {
                 shuffler.add(MINE);
                 minesInField++;
@@ -36,6 +38,7 @@ public class Game {
             else {
                 shuffler.add(NO_MINE);
             }
+            currentSize++;
         }
         Collections.shuffle(shuffler);
     }

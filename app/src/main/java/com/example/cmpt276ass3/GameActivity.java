@@ -19,18 +19,30 @@ import android.widget.Toast;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.cmpt276ass3.databinding.ActivityGameBinding;
+import com.example.cmpt276ass3.model.Game;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static final int NUM_ROWS = 3;
-    private static final int NUM_COLS = 3;
-    Button cellArray[][] = new Button[NUM_ROWS][NUM_COLS];
+    private static int NUM_ROWS;
+    private static int NUM_COLS;
+    private static int NUM_MINES;
+
+    private Button cellArray[][];
+    private Game newGame;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        NUM_ROWS = 4;
+        NUM_COLS = 6;
+        NUM_MINES = 6;
+        cellArray = new Button[NUM_ROWS][NUM_COLS];
+
+        newGame = new Game(NUM_ROWS, NUM_COLS, NUM_MINES);
+
         populateButtons();
     }
 
@@ -43,22 +55,25 @@ public class GameActivity extends AppCompatActivity {
                 TableLayout.LayoutParams.MATCH_PARENT,
                 1.0f));
             table.addView(tableRow);
+
             for (int col = 0; col < NUM_COLS; col++) {
                 final int FINAL_ROW = row;
                 final int FINAL_COL = col;
                 Button button = new Button(this);
 
-                //Format
                 button.setLayoutParams(new TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.MATCH_PARENT,
                 1.0f));
+
+                button.setText("x");
                 button.setPadding(0, 0, 0, 0);
 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         cellButtonClicked(FINAL_ROW, FINAL_COL);
+                        button.setEnabled(false);
                     }
                 });
 
@@ -85,20 +100,45 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void cellButtonClicked(int row, int col) {
-        Toast.makeText(this, "TEMP", Toast.LENGTH_LONG).show();
         Button button = cellArray[row][col];
 
         //Lock button sizes
         lockButtonSize();
 
-        //Scale drawable
-        scaleImageToCell(button);
+        if (newGame.reveal(row, col) == Game.MINE) {
+            button.setText("Found!");
+            updateScannedCells(row, col);
+        }
+        else {
+            int cellValue = newGame.scan(row, col);
+            button.setText(Integer.toString(cellValue));
+        }
+
+    }
+
+    private void updateScannedCells(int row, int col) {
+        for (int i = 0; i < NUM_COLS; i++) {
+            Button cell = cellArray[row][i];
+            String cellText = cell.getText().toString();
+            if (cellText != "x" && cellText != "0" && cellText != "Found!") {
+                int cellValue = Integer.parseInt(cellText) - 1;
+                cell.setText(Integer.toString(cellValue));
+            }
+        }
+        for (int i = 0; i < NUM_ROWS; i++) {
+            Button cell = cellArray[i][col];
+            String cellText = cell.getText().toString();
+            if (cellText != "x" && cellText != "0" && cellText != "Found!") {
+                int cellValue = Integer.parseInt(cellText) - 1;
+                cell.setText(Integer.toString(cellValue));
+            }
+        }
     }
 
     private void scaleImageToCell(Button button) {
         int newWidth = button.getWidth();
         int newHeight = button.getHeight();
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_android_black);
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.picture_of_cat);
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
         Resources resource = getResources();
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
