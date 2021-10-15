@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.navigation.ui.AppBarConfiguration;
@@ -43,8 +44,12 @@ public class GameActivity extends AppCompatActivity {
 
         newGame = new Game(NUM_ROWS, NUM_COLS, NUM_MINES);
 
+        updateNumberOfScansText();
+        updateNumberOfMinesText();
         populateButtons();
     }
+
+
 
     private void populateButtons() {
         TableLayout table = (TableLayout) findViewById(R.id.gameCells);
@@ -107,11 +112,13 @@ public class GameActivity extends AppCompatActivity {
             button.setText("Found!");
             newGame.getCell(row, col).cleanMine();
             updateScannedCells(row, col);
+            updateNumberOfMinesText();
         }
         else {
             int cellValue = newGame.getCell(row, col).getNumberOfNearbyMines();
             button.setText(Integer.toString(cellValue));
             button.setEnabled(false);
+            updateNumberOfScansText();
         }
 
     }
@@ -135,7 +142,15 @@ public class GameActivity extends AppCompatActivity {
                 cell.setText(Integer.toString(cellValue));
             }
         }
+    }
 
+    private void updateNumberOfMinesText() {
+        TextView mineText = (TextView) findViewById(R.id.numberOfMines);
+        mineText.setText("Found " + newGame.getMinesFound() + " of " + NUM_MINES + " mines");
+    }
+    private void updateNumberOfScansText() {
+        TextView mineText = (TextView) findViewById(R.id.numberOfScans);
+        mineText.setText("# Scans used: " + newGame.getScansPerformed());
     }
 
     private void scaleImageToCell(Button button) {

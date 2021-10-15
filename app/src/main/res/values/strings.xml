@@ -5,6 +5,9 @@
     <string name="setting_button">Options</string>
     <string name="help_button">Help</string>
     <string name="title_activity_game">temp activity title</string>
+    <string name="number_of_mines"># of Mines:</string>
+    <string name="number_of_scans"># of Scans:</string>
+
 
 
 </resources>

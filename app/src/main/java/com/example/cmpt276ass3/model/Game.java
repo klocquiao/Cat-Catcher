@@ -2,6 +2,7 @@ package com.example.cmpt276ass3.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Game {
     public static final Boolean MINE = true;
@@ -15,13 +16,13 @@ public class Game {
     private Cell field[][];
     private ArrayList<Boolean> shuffler = new ArrayList<Boolean>();
 
-
     public Game(int numberOfRows, int numberOfColumns, int numberOfMines) {
         this.numberOfRows = numberOfRows;
         this.numberOfColumns = numberOfColumns;
         this.numberOfMines = numberOfMines;
         minesFound = 0;
         scansPerformed = 0;
+
 
         shuffleFieldValues();
         populateField();
@@ -69,9 +70,10 @@ public class Game {
             }
             return MINE;
         }
-        scansPerformed++;
+        if (!isScan) {
+            scansPerformed++;
+        }
         return NO_MINE;
-
     }
     public void scan(int row, int column) {
         int totalNearbyMines = 0;
@@ -90,6 +92,14 @@ public class Game {
 
     public Cell getCell(int row, int col) {
         return field[row][col];
+    }
+
+    public int getMinesFound() {
+        return minesFound;
+    }
+
+    public int getScansPerformed() {
+        return scansPerformed;
     }
 
 }
