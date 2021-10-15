@@ -1,5 +1,7 @@
 package com.example.cmpt276ass3.model;
 
+import com.example.cmpt276ass3.OptionActivity;
+
 public class Settings {
     private static Settings instance;
     private static int numberOfMines;
@@ -7,7 +9,6 @@ public class Settings {
     private static int numberOfColumns;
 
     private Settings() {
-        //Default options
         numberOfRows = 4;
         numberOfColumns = 6;
         numberOfMines = 6;
@@ -20,27 +21,27 @@ public class Settings {
         return instance;
     }
 
-    public static int getNumberOfRows() {
+    public int getNumberOfRows() {
         return numberOfRows;
     }
 
-    public static void setNumberOfRows(int numberOfRows) {
+    public void setNumberOfRows(int numberOfRows) {
         Settings.numberOfRows = numberOfRows;
     }
 
-    public static int getNumberOfColumns() {
+    public int getNumberOfColumns() {
         return numberOfColumns;
     }
 
-    public static void setNumberOfColumns(int numberOfColumns) {
+    public void setNumberOfColumns(int numberOfColumns) {
         Settings.numberOfColumns = numberOfColumns;
     }
 
-    public static int getNumberOfMines() {
+    public int getNumberOfMines() {
         return numberOfMines;
     }
 
-    public static void setNumberOfMines(int numberOfMines) {
+    public void setNumberOfMines(int numberOfMines) {
         Settings.numberOfMines = numberOfMines;
     }
 

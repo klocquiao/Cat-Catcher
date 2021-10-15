@@ -20,7 +20,6 @@ public class MainMenuActivity extends AppCompatActivity {
         startGame();
         startOption();
         startHelp();
-
     }
 
 

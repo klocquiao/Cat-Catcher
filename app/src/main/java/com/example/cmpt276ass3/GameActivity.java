@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.ui.AppBarConfiguration;
 
 import android.view.View;
 import android.widget.Button;
@@ -16,28 +17,20 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
-import androidx.navigation.ui.AppBarConfiguration;
-
 import com.example.cmpt276ass3.databinding.ActivityGameBinding;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static final int NUM_ROWS = 3;
-    private static final int NUM_COLS = 3;
+    private static final int NUM_ROWS = 4;
+    private static final int NUM_COLS = 6;
     Button cellArray[][] = new Button[NUM_ROWS][NUM_COLS];
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityGameBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityGameBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+        setContentView(R.layout.activity_game);
         populateButtons();
-
-
     }
 
     private void populateButtons() {
@@ -49,16 +42,19 @@ public class GameActivity extends AppCompatActivity {
                 TableLayout.LayoutParams.MATCH_PARENT,
                 1.0f));
             table.addView(tableRow);
+
             for (int col = 0; col < NUM_COLS; col++) {
                 final int FINAL_ROW = row;
                 final int FINAL_COL = col;
                 Button button = new Button(this);
 
-                //Format
+                button.setText("" + col + "," + row);
+
                 button.setLayoutParams(new TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.MATCH_PARENT,
                 1.0f));
+
                 button.setPadding(0, 0, 0, 0);
 
                 button.setOnClickListener(new View.OnClickListener() {
