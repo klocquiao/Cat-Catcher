@@ -1,37 +1,37 @@
 package com.example.cmpt276ass3;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.ui.AppBarConfiguration;
 
-import com.example.cmpt276ass3.databinding.ActivityGameBinding;
 import com.example.cmpt276ass3.model.Game;
 import com.example.cmpt276ass3.model.Settings;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static int NUM_ROWS;
-    private static int NUM_COLS;
-    private static int NUM_MINES;
+    private static int numberOfRows;
+    private static int numberOfColumns;
+    private static int numberOfMines;
+    private static int numberOfGamesStarted;
+
+    private static final String CURRENT_GAMES_STARTED = "Current Games Started";
+    private static final String PREFS_GAMES_STARTED = "GamesStartedPref";
+
     private Settings gameSettings;
     private Button cellArray[][];
     private Game newGame;
@@ -43,23 +43,28 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         gameSettings = Settings.getInstance(this);
 
-        NUM_ROWS = gameSettings.getNumberOfRows();
-        NUM_COLS = gameSettings.getNumberOfColumns();
-        NUM_MINES = gameSettings.getNumberOfMines();
+        numberOfRows = gameSettings.getNumberOfRows();
+        numberOfColumns = gameSettings.getNumberOfColumns();
+        numberOfMines = gameSettings.getNumberOfMines();
 
-        cellArray = new Button[NUM_ROWS][NUM_COLS];
-        newGame = new Game(NUM_ROWS, NUM_COLS, NUM_MINES);
+        cellArray = new Button[numberOfRows][numberOfColumns];
+        newGame = new Game(numberOfRows, numberOfColumns, numberOfMines);
 
         updateNumberOfScansText();
         updateNumberOfMinesText();
         populateButtons();
+
+        numberOfGamesStarted = getGamesStartedCount(this);
+        updateNumberOfSGamesStartedText();
+
+
+        numberOfGamesStarted++;
+        saveGamesStartedCount(numberOfGamesStarted);
     }
-
-
 
     private void populateButtons() {
         TableLayout table = (TableLayout) findViewById(R.id.gameCells);
-        for (int row = 0; row < NUM_ROWS; row++) {
+        for (int row = 0; row < numberOfRows; row++) {
             TableRow tableRow = new TableRow(this);
             tableRow.setLayoutParams(new TableLayout.LayoutParams(
                 TableLayout.LayoutParams.MATCH_PARENT,
@@ -67,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
                 1.0f));
             table.addView(tableRow);
 
-            for (int col = 0; col < NUM_COLS; col++) {
+            for (int col = 0; col < numberOfColumns; col++) {
                 final int FINAL_ROW = row;
                 final int FINAL_COL = col;
                 Button button = new Button(this);
@@ -91,13 +96,12 @@ public class GameActivity extends AppCompatActivity {
                 tableRow.addView(button);
                 cellArray[row][col] = button;
             }
-
         }
     }
 
     private void lockButtonSize() {
-        for (int row = 0; row < NUM_ROWS; row++) {
-            for (int col = 0; col < NUM_COLS; col++) {
+        for (int row = 0; row < numberOfRows; row++) {
+            for (int col = 0; col < numberOfColumns; col++) {
                 Button button = cellArray[row][col];
                 int width = button.getWidth();
                 button.setMinWidth(width);
@@ -131,7 +135,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void updateScannedCells(int row, int col) {
-        for (int i = 0; i < NUM_COLS; i++) {
+        for (int i = 0; i < numberOfColumns; i++) {
             newGame.scan(row, i);
             Button cell = cellArray[row][i];
             String cellText = cell.getText().toString();
@@ -140,7 +144,7 @@ public class GameActivity extends AppCompatActivity {
                 cell.setText(Integer.toString(cellValue));
             }
         }
-        for (int i = 0; i < NUM_ROWS; i++) {
+        for (int i = 0; i < numberOfRows; i++) {
             newGame.scan(i, col);
             Button cell = cellArray[i][col];
             String cellText = cell.getText().toString();
@@ -153,11 +157,17 @@ public class GameActivity extends AppCompatActivity {
 
     private void updateNumberOfMinesText() {
         TextView mineText = (TextView) findViewById(R.id.numberOfMines);
-        mineText.setText("Found " + newGame.getMinesFound() + " of " + NUM_MINES + " mines");
+        mineText.setText("Found " + newGame.getMinesFound() + " of " + numberOfMines + " mines");
     }
+
     private void updateNumberOfScansText() {
-        TextView mineText = (TextView) findViewById(R.id.numberOfScans);
-        mineText.setText("# Scans used: " + newGame.getScansPerformed());
+        TextView scanText = (TextView) findViewById(R.id.numberOfScans);
+        scanText.setText("# Scans used: " + newGame.getScansPerformed());
+    }
+
+    private void updateNumberOfSGamesStartedText() {
+        TextView gamesStartedText = (TextView) findViewById(R.id.numberOfGamesStarted);
+        gamesStartedText.setText("" + numberOfGamesStarted);
     }
 
     private void scaleImageToCell(Button button) {
@@ -170,12 +180,25 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void checkWinner() {
-        if (newGame.getMinesFound() == NUM_MINES) {
+        if (newGame.getMinesFound() == numberOfMines) {
             FragmentManager manager = getSupportFragmentManager();
             GameFragment dialog = new GameFragment();
             dialog.show(manager, "WinnerDialog");
         }
     }
+
+    private void saveGamesStartedCount(int gamesStartedCount) {
+        SharedPreferences prefs = this.getSharedPreferences(PREFS_GAMES_STARTED, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(CURRENT_GAMES_STARTED, gamesStartedCount);
+        editor.apply();
+    }
+
+    public static int getGamesStartedCount(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_GAMES_STARTED, MODE_PRIVATE);
+        return prefs.getInt(CURRENT_GAMES_STARTED, 0);
+    }
+
 
     public static Intent newIntent(Context c) {
         Intent intent = new Intent(c, GameActivity.class);

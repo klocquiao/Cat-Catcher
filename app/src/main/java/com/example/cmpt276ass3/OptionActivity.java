@@ -21,7 +21,6 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
     private Settings gameSettings;
     private static final String CURRENT_DIMENSION = "Current Dimension";
     private static final String CURRENT_MINE_COUNT = "Current Mine Count";
-
     private static final String PREFS_DIMENSION = "DimensionPref";
     private static final String PREFS_MINE_COUNT = "MineCountPref";
 
