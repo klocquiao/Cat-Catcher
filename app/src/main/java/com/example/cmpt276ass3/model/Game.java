@@ -7,9 +7,9 @@ import java.util.List;
 public class Game {
     public static final Boolean MINE = true;
     public static final Boolean NO_MINE = false;
-    private static int numberOfRows;
-    private static int numberOfColumns;
-    private static int numberOfMines;
+    private int numberOfRows;
+    private int numberOfColumns;
+    private int numberOfMines;
     private int minesFound;
     private int scansPerformed;
 

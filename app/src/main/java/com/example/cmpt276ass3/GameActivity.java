@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -24,13 +25,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.cmpt276ass3.databinding.ActivityGameBinding;
 import com.example.cmpt276ass3.model.Game;
+import com.example.cmpt276ass3.model.Settings;
 
 public class GameActivity extends AppCompatActivity {
 
     private static int NUM_ROWS;
     private static int NUM_COLS;
     private static int NUM_MINES;
-
+    private Settings gameSettings;
     private Button cellArray[][];
     private Game newGame;
 
@@ -39,12 +41,13 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        gameSettings = Settings.getInstance(this);
 
-        NUM_ROWS = 4;
-        NUM_COLS = 6;
-        NUM_MINES = 6;
+        NUM_ROWS = gameSettings.getNumberOfRows();
+        NUM_COLS = gameSettings.getNumberOfColumns();
+        NUM_MINES = gameSettings.getNumberOfMines();
+
         cellArray = new Button[NUM_ROWS][NUM_COLS];
-
         newGame = new Game(NUM_ROWS, NUM_COLS, NUM_MINES);
 
         updateNumberOfScansText();
@@ -132,7 +135,7 @@ public class GameActivity extends AppCompatActivity {
             newGame.scan(row, i);
             Button cell = cellArray[row][i];
             String cellText = cell.getText().toString();
-            if (cellText != "x" && cellText != "0" && cellText != "Found!") {
+            if (!cellText.matches("x") && !cellText.matches("0") && !cellText.matches("Found!")) {
                 int cellValue = newGame.getCell(row, i).getNumberOfNearbyMines();
                 cell.setText(Integer.toString(cellValue));
             }
@@ -141,7 +144,7 @@ public class GameActivity extends AppCompatActivity {
             newGame.scan(i, col);
             Button cell = cellArray[i][col];
             String cellText = cell.getText().toString();
-            if (cellText != "x" && cellText != "0" && cellText != "Found!") {
+            if (!cellText.matches("x") && !cellText.matches("0") && !cellText.matches("Found!")) {
                 int cellValue = newGame.getCell(i, col).getNumberOfNearbyMines();
                 cell.setText(Integer.toString(cellValue));
             }
