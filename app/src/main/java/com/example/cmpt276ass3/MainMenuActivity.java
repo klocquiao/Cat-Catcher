@@ -20,13 +20,12 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        gameSettings.getInstance(this);
+        gameSettings = Settings.getInstance(this);
 
         startGame();
         startOption();
         startHelp();
     }
-
 
     public void startGame() {
         Button startButton = (Button) findViewById(R.id.startButton);

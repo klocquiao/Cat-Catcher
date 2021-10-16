@@ -31,12 +31,12 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
         gameSettings = Settings.getInstance(this);
+
         createDropDownMenu();
         createRadioButtons();
 
         String str = getDimensionChoice(this);
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
-
     }
 
     private void createRadioButtons() {

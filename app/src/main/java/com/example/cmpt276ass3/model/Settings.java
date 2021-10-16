@@ -43,16 +43,10 @@ public class Settings {
                 setNumberOfColumns(15);
                 break;
         }
-
-        Log.i("TAG", "Rows: " + numberOfRows);
-        Log.i("TAG", "Col: " + numberOfColumns);
-
     }
 
     public void updateMineCount() {
         setNumberOfMines(OptionActivity.getMineCountChoice(context));
-        Log.i("TAG", "Mine: " + numberOfMines);
-
     }
 
     public int getNumberOfRows() {
@@ -60,7 +54,7 @@ public class Settings {
     }
 
     private void setNumberOfRows(int numberOfRows) {
-        Settings.numberOfRows = numberOfRows;
+        this.numberOfRows = numberOfRows;
     }
 
     public int getNumberOfColumns() {
@@ -68,7 +62,7 @@ public class Settings {
     }
 
     private void setNumberOfColumns(int numberOfColumns) {
-        Settings.numberOfColumns = numberOfColumns;
+        this.numberOfColumns = numberOfColumns;
     }
 
     public int getNumberOfMines() {
@@ -76,7 +70,7 @@ public class Settings {
     }
 
     private void setNumberOfMines(int numberOfMines) {
-        Settings.numberOfMines = numberOfMines;
+        this.numberOfMines = numberOfMines;
     }
 
 }
