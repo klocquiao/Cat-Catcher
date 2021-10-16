@@ -1,10 +1,16 @@
 <resources>
+    <!-- Main Menu -->
     <string name="app_name">Cat Catcher</string>
     <string name="main_menu">Main Menu</string>
     <string name="start_button">Start Game!</string>
     <string name="setting_button">Options</string>
     <string name="help_button">Help</string>
-    <string name="title_activity_game">temp activity title</string>
 
+    <!-- Game -->
+    <string name="title_activity_game">Mine Seeker</string>
+    <string name="number_of_mines">Found 0 of 0 Mines</string>
+    <string name="number_of_scans"># of Scans: 0</string>
 
+    <!-- Winner Dialog-->
+    <string name="winner_message">Meow</string>
 </resources>
