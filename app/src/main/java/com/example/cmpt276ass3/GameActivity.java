@@ -157,17 +157,17 @@ public class GameActivity extends AppCompatActivity {
 
     private void updateNumberOfMinesText() {
         TextView mineText = (TextView) findViewById(R.id.numberOfMines);
-        mineText.setText("Found " + newGame.getMinesFound() + " of " + numberOfMines + " mines");
+        mineText.setText(getString(R.string.number_of_mines, newGame.getMinesFound(), numberOfMines));
     }
 
     private void updateNumberOfScansText() {
         TextView scanText = (TextView) findViewById(R.id.numberOfScans);
-        scanText.setText("# Scans used: " + newGame.getScansPerformed());
+        scanText.setText(getString(R.string.number_of_scans, newGame.getScansPerformed()));
     }
 
     private void updateNumberOfSGamesStartedText() {
         TextView gamesStartedText = (TextView) findViewById(R.id.numberOfGamesStarted);
-        gamesStartedText.setText("" + numberOfGamesStarted);
+        gamesStartedText.setText(getString(R.string.number_of_times_played, numberOfGamesStarted));
     }
 
     private void scaleImageToCell(Button button) {

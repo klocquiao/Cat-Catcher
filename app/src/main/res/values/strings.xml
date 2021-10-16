@@ -8,8 +8,9 @@
 
     <!-- Game -->
     <string name="title_activity_game">Mine Seeker</string>
-    <string name="number_of_mines">Found 0 of 0 Mines</string>
-    <string name="number_of_scans"># of Scans: 0</string>
+    <string name="number_of_mines">Found %1$d of %2$d Mines</string>
+    <string name="number_of_scans"># of Scans: %1$d</string>
+    <string name="number_of_times_played">Times Played: %1$d</string>
 
     <!-- Winner Dialog-->
     <string name="winner_message">Meow</string>
