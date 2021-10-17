@@ -36,4 +36,6 @@
         in that cells row and column. Once the counter on the top left is equal to the max amount of cats on the field, the user will be congratulated
         and the game will end. The user can control the amount of rows and columns on the field, as well as the number of cats, by accessing the settings
         for the main menu. </string>
+
+    <string name="citation_text">grass.png by Alisa Atchison\nfound_cat.png by Alisa Atchison\npicture_of_cat by Kyle Locquiao</string>
 </resources>

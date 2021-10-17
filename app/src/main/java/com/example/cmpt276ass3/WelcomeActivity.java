@@ -23,6 +23,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private TextView appTitle;
     private ImageView runningCat;
     private Button startButton;
+    private Handler handler;
 
 
     @Override
@@ -37,7 +38,7 @@ public class WelcomeActivity extends AppCompatActivity {
         playAnimation();
 
         //Referenced: https://stackoverflow.com/questions/18103814/close-an-activity-after-10-seconds
-        Handler handler = new Handler();
+        handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 startApp();
@@ -49,6 +50,8 @@ public class WelcomeActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                handler.removeCallbacksAndMessages(null);
+
                 startApp();
             }
         });
