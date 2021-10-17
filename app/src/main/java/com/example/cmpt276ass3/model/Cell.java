@@ -18,10 +18,12 @@ public class Cell {
     }
 
     public void cleanMine() {
-        isMine = false;
+        this.isMine = false;
     }
 
     public int getNumberOfNearbyMines() {
         return numberOfNearbyMines;
     }
+
+
 }

@@ -24,6 +24,7 @@ public class GameFragment extends AppCompatDialogFragment {
                 getActivity().finish();
             }
         };
+
         return new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.winner_message_header)
                 .setView(v)

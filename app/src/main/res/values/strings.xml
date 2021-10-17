@@ -11,10 +11,9 @@
     <string name="number_of_mines">Found %1$d of %2$d Mines</string>
     <string name="number_of_scans"># of Scans: %1$d</string>
     <string name="number_of_times_played">Times Played: %1$d</string>
-    <string name="bush">^^^</string>
 
     <!-- Settings -->
-    <string name="setting_title">Settings</string>
+    <string name="option_title">Options</string>
     <string name="dimensions">Dimensions:</string>
     <string name="mine_count"># of Mines:</string>
 
@@ -34,5 +33,4 @@
         in that cells row and column. Once the counter on the top left is equal to the max amount of cats on the field, the user will be congratulated
         and the game will end. The user can control the amount of rows and columns on the field, as well as the number of cats, by accessing the settings
         for the main menu. </string>
-
 </resources>

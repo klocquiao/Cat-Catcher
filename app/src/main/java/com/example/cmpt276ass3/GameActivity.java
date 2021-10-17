@@ -11,12 +11,14 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.cmpt276ass3.model.Game;
@@ -47,6 +49,9 @@ public class GameActivity extends AppCompatActivity {
         numberOfColumns = gameSettings.getNumberOfColumns();
         numberOfMines = gameSettings.getNumberOfMines();
 
+        Log.i("TAG", "Rows " + numberOfRows);
+        Log.i("TAG", "Cols " + numberOfColumns);
+        Log.i("TAG", "Mines " + numberOfMines);
         cellArray = new Button[numberOfRows][numberOfColumns];
         newGame = new Game(numberOfRows, numberOfColumns, numberOfMines);
 
@@ -60,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
 
         numberOfGamesStarted++;
         saveGamesStartedCount(numberOfGamesStarted);
+
     }
 
     private void populateButtons() {
@@ -82,7 +88,7 @@ public class GameActivity extends AppCompatActivity {
                 TableRow.LayoutParams.MATCH_PARENT,
                 1.0f));
 
-                button.setText("x");
+                button.setText("");
                 button.setPadding(0, 0, 0, 0);
 
                 button.setOnClickListener(new View.OnClickListener() {
@@ -120,10 +126,11 @@ public class GameActivity extends AppCompatActivity {
         lockButtonSize();
 
         if (newGame.reveal(row, col, false) == Game.MINE) {
-            button.setText("Found!");
             newGame.getCell(row, col).cleanMine();
             updateScannedCells(row, col);
             updateNumberOfMinesText();
+            button.setTextColor(ContextCompat.getColor(this, R.color.white));
+            scaleImageToCell(button);
             checkWinner();
         }
         else {
@@ -139,7 +146,7 @@ public class GameActivity extends AppCompatActivity {
             newGame.scan(row, i);
             Button cell = cellArray[row][i];
             String cellText = cell.getText().toString();
-            if (!cellText.matches("x") && !cellText.matches("0") && !cellText.matches("Found!")) {
+            if (!cellText.isEmpty() && !cellText.matches("0") && !newGame.getCell(row, i).isMine()) {
                 int cellValue = newGame.getCell(row, i).getNumberOfNearbyMines();
                 cell.setText(Integer.toString(cellValue));
             }
@@ -148,7 +155,7 @@ public class GameActivity extends AppCompatActivity {
             newGame.scan(i, col);
             Button cell = cellArray[i][col];
             String cellText = cell.getText().toString();
-            if (!cellText.matches("x") && !cellText.matches("0") && !cellText.matches("Found!")) {
+            if (!cellText.isEmpty() && !cellText.matches("0") && !newGame.getCell(i, col).isMine()) {
                 int cellValue = newGame.getCell(i, col).getNumberOfNearbyMines();
                 cell.setText(Integer.toString(cellValue));
             }
@@ -173,7 +180,7 @@ public class GameActivity extends AppCompatActivity {
     private void scaleImageToCell(Button button) {
         int newWidth = button.getWidth();
         int newHeight = button.getHeight();
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.picture_of_cat);
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.found_cat);
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
         Resources resource = getResources();
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
@@ -184,6 +191,7 @@ public class GameActivity extends AppCompatActivity {
             FragmentManager manager = getSupportFragmentManager();
             GameFragment dialog = new GameFragment();
             dialog.show(manager, "WinnerDialog");
+            finish();
         }
     }
 
