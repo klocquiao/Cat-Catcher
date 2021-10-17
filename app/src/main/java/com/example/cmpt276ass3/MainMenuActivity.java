@@ -1,5 +1,6 @@
 package com.example.cmpt276ass3;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -60,7 +61,10 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
-
+    public static Intent newIntent(Context c) {
+        Intent intent = new Intent(c, MainMenuActivity.class);
+        return intent;
+    }
 
 
 }

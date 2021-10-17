@@ -1,6 +1,6 @@
 <resources>
     <!-- Welcome -->
-    <string name="name_author">Kyle Locquiao</string>
+    <string name="name_author">Developed by Kyle Locquiao</string>
     <string name="skip_button">Skip</string>
 
     <!-- Main Menu -->

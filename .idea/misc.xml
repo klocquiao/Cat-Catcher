@@ -7,12 +7,13 @@
         <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/drawable/ic_android_black.xml" value="0.3828125" />
         <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.2296875" />
         <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2296875" />
-        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/activity_game.xml" value="0.22" />
-        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/activity_help.xml" value="0.17831813576494426" />
-        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/activity_option.xml" value="0.17831813576494426" />
-        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/activity_welcome.xml" value="0.2" />
-        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/fragment_game.xml" value="0.2109375" />
-        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/message_layout.xml" value="0.317481884057971" />
+        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/activity_game.xml" value="0.33" />
+        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/activity_help.xml" value="0.33" />
+        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/activity_main_menu.xml" value="0.20572916666666666" />
+        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/activity_option.xml" value="0.33" />
+        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/activity_welcome.xml" value="0.33" />
+        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/message_layout.xml" value="0.3020833333333333" />
+        <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/layout/welcome_screen.xml" value="0.3020833333333333" />
         <entry key="..\:/Users/klocq/AndroidStudioProjects/Cmpt276Ass3/app/src/main/res/menu/menu_main.xml" value="0.20520833333333333" />
       </map>
     </option>
