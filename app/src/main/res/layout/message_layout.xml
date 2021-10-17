@@ -9,12 +9,11 @@
         android:id="@+id/winnerImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/picture_of_cat"
+        app:layout_constraintBottom_toTopOf="@+id/winnerMessage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/picture_of_cat" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/winnerMessage"
@@ -22,9 +21,9 @@
         android:layout_height="wrap_content"
         android:text="@string/winner_message"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/winnerImage"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/winnerImage"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="@+id/winnerImage"
+        app:layout_constraintTop_toBottomOf="@+id/winnerImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

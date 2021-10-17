@@ -1,12 +1,14 @@
 package com.example.cmpt276ass3;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,10 +44,13 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
         RadioGroup dimensionGroup = (RadioGroup) findViewById(R.id.dimensionSettings);
         String[] dimensionOptions = getResources().getStringArray((R.array.row_by_column));
 
+
         for (int i = 0; i < dimensionOptions.length; i++) {
             String dimensionOption = dimensionOptions[i];
             RadioButton rButton = new RadioButton(this);
             rButton.setText(dimensionOption);
+            rButton.setTextColor(ContextCompat.getColor(this, R.color.white));
+            rButton.setPadding(0, 0, 360, 0);
 
             rButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,7 +70,6 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     //Code referenced from: https://developer.android.com/guide/topics/ui/controls/spinner#
-    //                      https://stackoverflow.com/questions/10634180/how-to-set-spinner-default-by-its-value-instead-of-position
     private void createDropDownMenu() {
         Spinner mineSpinner = (Spinner) findViewById(R.id.mineCountSettings);
         mineSpinner.setOnItemSelectedListener(this);

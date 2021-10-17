@@ -25,7 +25,7 @@ public class GameFragment extends AppCompatDialogFragment {
             }
         };
         return new AlertDialog.Builder(getActivity())
-                .setTitle("You won!")
+                .setTitle(R.string.winner_message_header)
                 .setView(v)
                 .setPositiveButton(android.R.string.ok, listener)
                 .create();

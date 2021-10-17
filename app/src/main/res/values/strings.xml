@@ -11,9 +11,18 @@
     <string name="number_of_mines">Found %1$d of %2$d Mines</string>
     <string name="number_of_scans"># of Scans: %1$d</string>
     <string name="number_of_times_played">Times Played: %1$d</string>
+    <string name="bush">^^^</string>
+
+    <!-- Settings -->
+    <string name="setting_title">Settings</string>
+    <string name="dimensions">Dimensions:</string>
+    <string name="mine_count"># of Mines:</string>
+
 
     <!-- Winner Dialog-->
-    <string name="winner_message">Meow</string>
+    <string name="winner_message">"Meow!" (Thanks for Finding us)</string>
+    <string name="winner_message_header">You did it!</string>
+
 
     <!-- Help -->
     <string name="help_title">Help</string>

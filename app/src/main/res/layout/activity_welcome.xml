@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainMenuActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/grass">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -56,7 +56,9 @@
         android:layout_marginTop="32dp"
         android:fontFamily="casual"
         android:text="@string/main_menu"
+        android:textColor="#FFFFFF"
         android:textSize="48sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
