@@ -11,15 +11,14 @@
     <string name="help_button">Help</string>
 
     <!-- Game -->
-    <string name="title_activity_game">Mine Seeker</string>
-    <string name="number_of_mines">Found %1$d of %2$d Mines</string>
+    <string name="number_of_cats">Found %1$d of %2$d Cats</string>
     <string name="number_of_scans"># of Scans: %1$d</string>
     <string name="number_of_times_played">Times Played: %1$d</string>
 
     <!-- Settings -->
     <string name="option_title">Options</string>
     <string name="dimensions">Dimensions:</string>
-    <string name="mine_count"># of Mines:</string>
+    <string name="cat_count"># of Cats:</string>
 
 
     <!-- Winner Dialog-->

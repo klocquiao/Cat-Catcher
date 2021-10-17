@@ -1,3 +1,7 @@
+/**
+ * Layout for the winners alert dialog used in GameActivity.java when the player wins the game.
+ */
+
 package com.example.cmpt276ass3;
 
 import android.app.AlertDialog;

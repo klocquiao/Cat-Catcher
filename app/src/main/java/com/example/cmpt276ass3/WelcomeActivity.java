@@ -1,3 +1,9 @@
+/**
+ * The welcome menu should be opened immediately when the application is open.
+ * It will display the author name, the game title, and also feature a quick animation in which the user may skip.
+ * By waiting or clicking the skip button, the user will be brought to the main menu.
+ */
+
 package com.example.cmpt276ass3;
 
 import androidx.appcompat.app.AppCompatActivity;

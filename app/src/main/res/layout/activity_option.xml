@@ -46,24 +46,24 @@
         app:layout_constraintTop_toBottomOf="@+id/txtSettings" />
 
     <Spinner
-        android:id="@+id/mineCountSettings"
+        android:id="@+id/catCountSettings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/txtMines"
+        app:layout_constraintEnd_toEndOf="@+id/txtCats"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMines" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCats" />
 
     <TextView
-        android:id="@+id/txtMines"
+        android:id="@+id/txtCats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:text="@string/mine_count"
+        android:text="@string/cat_count"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,26 +1,30 @@
+/**
+ * Contains the game logic. It populates shuffles the field, placing cats in random lcoations.
+ * It also contains information as to what happens when a cat is found or if a cat isn't found.
+ */
+
 package com.example.cmpt276ass3.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class Game {
-    public static final Boolean MINE = true;
-    public static final Boolean NO_MINE = false;
+    public static final Boolean CAT = true;
+    public static final Boolean NO_CAT = false;
     private int numberOfRows;
     private int numberOfColumns;
-    private int numberOfMines;
-    private int minesFound;
+    private int numberOfCats;
+    private int catsFound;
     private int scansPerformed;
 
     private Cell field[][];
     private ArrayList<Boolean> shuffler = new ArrayList<Boolean>();
 
-    public Game(int numberOfRows, int numberOfColumns, int numberOfMines) {
+    public Game(int numberOfRows, int numberOfColumns, int numberOfCats) {
         this.numberOfRows = numberOfRows;
         this.numberOfColumns = numberOfColumns;
-        this.numberOfMines = numberOfMines;
-        minesFound = 0;
+        this.numberOfCats = numberOfCats;
+        catsFound = 0;
         scansPerformed = 0;
 
         shuffleFieldValues();
@@ -28,15 +32,15 @@ public class Game {
     }
 
     private void shuffleFieldValues() {
-        int minesInField = 0;
+        int catsInField = 0;
         int currentSize = 0;
         while(currentSize < numberOfColumns * numberOfRows) {
-            if (minesInField < numberOfMines) {
-                shuffler.add(MINE);
-                minesInField++;
+            if (catsInField < numberOfCats) {
+                shuffler.add(CAT);
+                catsInField++;
             }
             else {
-                shuffler.add(NO_MINE);
+                shuffler.add(NO_CAT);
             }
             currentSize++;
         }
@@ -61,41 +65,41 @@ public class Game {
     }
 
     public boolean reveal(int row, int column, boolean isScan) {
-        boolean cellValue = field[row][column].isMine();
+        boolean cellValue = field[row][column].isCat();
 
-        if (cellValue == MINE) {
+        if (cellValue == CAT) {
             if(!isScan) {
-                minesFound++;
+                catsFound++;
             }
-            return MINE;
+            return CAT;
         }
         if (!isScan) {
             scansPerformed++;
         }
-        return NO_MINE;
+        return NO_CAT;
     }
 
     public void scan(int row, int column) {
-        int totalNearbyMines = 0;
+        int totalNearbyCats = 0;
         for (int i = 0; i < numberOfColumns; i++) {
-            if (reveal(row, i, true) == MINE) {
-                totalNearbyMines++;
+            if (reveal(row, i, true) == CAT) {
+                totalNearbyCats++;
             }
         }
         for (int i = 0; i < numberOfRows; i++) {
-            if (reveal(i, column, true) == MINE) {
-                totalNearbyMines++;
+            if (reveal(i, column, true) == CAT) {
+                totalNearbyCats++;
             }
         }
-        getCell(row, column).setNumberOfNearbyMines(totalNearbyMines);
+        getCell(row, column).setNumberOfNearbyCats(totalNearbyCats);
     }
 
     public Cell getCell(int row, int col) {
         return field[row][col];
     }
 
-    public int getMinesFound() {
-        return minesFound;
+    public int getCatsFound() {
+        return catsFound;
     }
 
     public int getScansPerformed() {

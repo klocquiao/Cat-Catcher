@@ -11,7 +11,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -28,7 +27,7 @@ public class GameActivity extends AppCompatActivity {
 
     private static int numberOfRows;
     private static int numberOfColumns;
-    private static int numberOfMines;
+    private static int numberOfCats;
     private static int numberOfGamesStarted;
 
     private static final String CURRENT_GAMES_STARTED = "Current Games Started";
@@ -47,16 +46,13 @@ public class GameActivity extends AppCompatActivity {
 
         numberOfRows = gameSettings.getNumberOfRows();
         numberOfColumns = gameSettings.getNumberOfColumns();
-        numberOfMines = gameSettings.getNumberOfMines();
+        numberOfCats = gameSettings.getNumberOfCats();
 
-        Log.i("TAG", "Rows " + numberOfRows);
-        Log.i("TAG", "Cols " + numberOfColumns);
-        Log.i("TAG", "Mines " + numberOfMines);
         cellArray = new Button[numberOfRows][numberOfColumns];
-        newGame = new Game(numberOfRows, numberOfColumns, numberOfMines);
+        newGame = new Game(numberOfRows, numberOfColumns, numberOfCats);
 
         updateNumberOfScansText();
-        updateNumberOfMinesText();
+        updateNumberOfCatsText();
         populateButtons();
 
         numberOfGamesStarted = getGamesStartedCount(this);
@@ -125,16 +121,16 @@ public class GameActivity extends AppCompatActivity {
 
         lockButtonSize();
 
-        if (newGame.reveal(row, col, false) == Game.MINE) {
-            newGame.getCell(row, col).cleanMine();
+        if (newGame.reveal(row, col, false) == Game.CAT) {
+            newGame.getCell(row, col).catchCat();
             updateScannedCells(row, col);
-            updateNumberOfMinesText();
+            updateNumberOfCatsText();
             button.setTextColor(ContextCompat.getColor(this, R.color.white));
             scaleImageToCell(button);
             checkWinner();
         }
         else {
-            int cellValue = newGame.getCell(row, col).getNumberOfNearbyMines();
+            int cellValue = newGame.getCell(row, col).getNumberOfNearbyCats();
             button.setText(Integer.toString(cellValue));
             button.setEnabled(false);
             updateNumberOfScansText();
@@ -146,8 +142,8 @@ public class GameActivity extends AppCompatActivity {
             newGame.scan(row, i);
             Button cell = cellArray[row][i];
             String cellText = cell.getText().toString();
-            if (!cellText.isEmpty() && !cellText.matches("0") && !newGame.getCell(row, i).isMine()) {
-                int cellValue = newGame.getCell(row, i).getNumberOfNearbyMines();
+            if (!cellText.isEmpty() && !cellText.matches("0") && !newGame.getCell(row, i).isCat()) {
+                int cellValue = newGame.getCell(row, i).getNumberOfNearbyCats();
                 cell.setText(Integer.toString(cellValue));
             }
         }
@@ -155,16 +151,16 @@ public class GameActivity extends AppCompatActivity {
             newGame.scan(i, col);
             Button cell = cellArray[i][col];
             String cellText = cell.getText().toString();
-            if (!cellText.isEmpty() && !cellText.matches("0") && !newGame.getCell(i, col).isMine()) {
-                int cellValue = newGame.getCell(i, col).getNumberOfNearbyMines();
+            if (!cellText.isEmpty() && !cellText.matches("0") && !newGame.getCell(i, col).isCat()) {
+                int cellValue = newGame.getCell(i, col).getNumberOfNearbyCats();
                 cell.setText(Integer.toString(cellValue));
             }
         }
     }
 
-    private void updateNumberOfMinesText() {
-        TextView mineText = (TextView) findViewById(R.id.numberOfMines);
-        mineText.setText(getString(R.string.number_of_mines, newGame.getMinesFound(), numberOfMines));
+    private void updateNumberOfCatsText() {
+        TextView catText = (TextView) findViewById(R.id.numberOfCats);
+        catText.setText(getString(R.string.number_of_cats, newGame.getCatsFound(), numberOfCats));
     }
 
     private void updateNumberOfScansText() {
@@ -187,7 +183,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void checkWinner() {
-        if (newGame.getMinesFound() == numberOfMines) {
+        if (newGame.getCatsFound() == numberOfCats) {
             FragmentManager manager = getSupportFragmentManager();
             GameFragment dialog = new GameFragment();
             dialog.show(manager, "WinnerDialog");

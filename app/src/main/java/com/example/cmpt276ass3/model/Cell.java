@@ -1,28 +1,33 @@
+/**
+ * A cell contains the information as to the number of cats local to the cell, as well as
+ * whether or not a cell contains a cat or not
+ */
+
 package com.example.cmpt276ass3.model;
 
 public class Cell {
-    private boolean isMine;
-    private int numberOfNearbyMines;
+    private boolean isCat;
+    private int numberOfNearbyCats;
 
-    public Cell(boolean isMine) {
-        this.isMine = isMine;
-        this.numberOfNearbyMines = -1;
+    public Cell(boolean isCat) {
+        this.isCat = isCat;
+        this.numberOfNearbyCats = -1;
     }
 
-    public void setNumberOfNearbyMines(int numberOfNearbyMines) {
-        this.numberOfNearbyMines = numberOfNearbyMines;
+    public void setNumberOfNearbyCats(int numberOfNearbyCats) {
+        this.numberOfNearbyCats = numberOfNearbyCats;
     }
 
-    public boolean isMine() {
-        return isMine;
+    public boolean isCat() {
+        return isCat;
     }
 
-    public void cleanMine() {
-        this.isMine = false;
+    public void catchCat() {
+        this.isCat = false;
     }
 
-    public int getNumberOfNearbyMines() {
-        return numberOfNearbyMines;
+    public int getNumberOfNearbyCats() {
+        return numberOfNearbyCats;
     }
 
 

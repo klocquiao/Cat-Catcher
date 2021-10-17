@@ -1,14 +1,17 @@
+/**
+ * The options activity allows the user to manipulate the dimensions of the field of cells
+ * before starting a game, as well as initialize the # of cats to be found behind cells.
+ * These options will be dynamically saved in between game startups.
+ */
+
 package com.example.cmpt276ass3;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,9 +25,9 @@ import com.example.cmpt276ass3.model.Settings;
 public class OptionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Settings gameSettings;
     private static final String CURRENT_DIMENSION = "Current Dimension";
-    private static final String CURRENT_MINE_COUNT = "Current Mine Count";
+    private static final String CURRENT_CAT_COUNT = "Current CAT Count";
     private static final String PREFS_DIMENSION = "DimensionPref";
-    private static final String PREFS_MINE_COUNT = "MineCountPref";
+    private static final String PREFS_CAT_COUNT = "CatCountPref";
 
 
     @Override
@@ -71,22 +74,22 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
 
     //Code referenced from: https://developer.android.com/guide/topics/ui/controls/spinner#
     private void createDropDownMenu() {
-        Spinner mineSpinner = (Spinner) findViewById(R.id.mineCountSettings);
-        mineSpinner.setOnItemSelectedListener(this);
+        Spinner catSpinner = (Spinner) findViewById(R.id.catCountSettings);
+        catSpinner.setOnItemSelectedListener(this);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-            R.array.number_of_mines, android.R.layout.simple_spinner_item);
+            R.array.number_of_cats, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mineSpinner.setAdapter(adapter);
+        catSpinner.setAdapter(adapter);
 
-        int spinnerPosition = adapter.getPosition("" + getMineCountChoice(this));
-        mineSpinner.setSelection(spinnerPosition);
+        int spinnerPosition = adapter.getPosition("" + getCatCountChoice(this));
+        catSpinner.setSelection(spinnerPosition);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        int mineCountOption = Integer.parseInt(parent.getItemAtPosition(pos).toString());
-        saveMineCountChoice(mineCountOption);
-        gameSettings.updateMineCount();
+        int catCountOption = Integer.parseInt(parent.getItemAtPosition(pos).toString());
+        saveCatCountChoice(catCountOption);
+        gameSettings.updateCatCount();
     }
 
     public void onNothingSelected(AdapterView<?> parent) {}
@@ -104,17 +107,17 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
         return prefs.getString(CURRENT_DIMENSION, defaultDimension);
     }
 
-    private void saveMineCountChoice(int mineCountOption) {
-        SharedPreferences prefs = this.getSharedPreferences(PREFS_MINE_COUNT, MODE_PRIVATE);
+    private void saveCatCountChoice(int catCountOption) {
+        SharedPreferences prefs = this.getSharedPreferences(PREFS_CAT_COUNT, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(CURRENT_MINE_COUNT, mineCountOption);
+        editor.putInt(CURRENT_CAT_COUNT, catCountOption);
         editor.apply();
     }
 
-    public static int getMineCountChoice(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_MINE_COUNT, MODE_PRIVATE);
-        String defaultMineCount = context.getResources().getString(R.string.default_number_of_mines);
-        return prefs.getInt(CURRENT_MINE_COUNT, Integer.parseInt(defaultMineCount));
+    public static int getCatCountChoice(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_CAT_COUNT, MODE_PRIVATE);
+        String defaultCatCount = context.getResources().getString(R.string.default_number_of_cats);
+        return prefs.getInt(CURRENT_CAT_COUNT, Integer.parseInt(defaultCatCount));
     }
 
     public static Intent newIntent(Context c) {

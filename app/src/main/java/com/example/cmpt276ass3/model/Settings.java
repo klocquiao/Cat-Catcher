@@ -1,14 +1,19 @@
+/**
+ * Contains the settings for the game. It is a singleton, meaning that these settings are global
+ * allowing for easy configuration when a game is initialized. It  contains information as to the
+ * dimensions and number of cats.
+ */
+
 package com.example.cmpt276ass3.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.cmpt276ass3.OptionActivity;
 
 public class Settings {
     private static Settings instance;
     private static Context context;
-    private static int numberOfMines;
+    private static int numberOfCats;
     private static int numberOfRows;
     private static int numberOfColumns;
     private String dimension;
@@ -16,7 +21,7 @@ public class Settings {
     private Settings(Context context) {
         this.context = context;
         updateDimensions();
-        updateMineCount();
+        updateCatCount();
     }
 
     //get context from parameter
@@ -45,8 +50,8 @@ public class Settings {
         }
     }
 
-    public void updateMineCount() {
-        setNumberOfMines(OptionActivity.getMineCountChoice(context));
+    public void updateCatCount() {
+        setNumberOfCats(OptionActivity.getCatCountChoice(context));
     }
 
     public int getNumberOfRows() {
@@ -65,12 +70,12 @@ public class Settings {
         this.numberOfColumns = numberOfColumns;
     }
 
-    public int getNumberOfMines() {
-        return numberOfMines;
+    public int getNumberOfCats() {
+        return numberOfCats;
     }
 
-    private void setNumberOfMines(int numberOfMines) {
-        this.numberOfMines = numberOfMines;
+    private void setNumberOfCats(int numberOfCats) {
+        this.numberOfCats = numberOfCats;
     }
 
 }
