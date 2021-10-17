@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,19 +16,36 @@ import android.widget.TextView;
 public class WelcomeActivity extends AppCompatActivity {
     private TextView appTitle;
     private ImageView runningCat;
-    private ImageView runningCat2;
-    private ImageView runningCat3;
+    private Button startButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
         appTitle = (TextView) findViewById(R.id.txtAppName);
         runningCat = (ImageView) findViewById(R.id.welcomeImage);
+        startButton = (Button) findViewById(R.id.skipButton);
         initSkip();
         playAnimation();
 
+        //Referenced: https://stackoverflow.com/questions/18103814/close-an-activity-after-10-seconds
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                startApp();
+            }
+        }, 10000);
+    }
+
+    private void initSkip() {
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startApp();
+            }
+        });
     }
 
     //Referenced: https://www.youtube.com/watch?v=xd3VtBAqtRo
@@ -38,15 +56,9 @@ public class WelcomeActivity extends AppCompatActivity {
         runningCat.startAnimation(catAnimation);
     }
 
-    private void initSkip() {
-        Button startButton = (Button) findViewById(R.id.skipButton);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = MainMenuActivity.newIntent(WelcomeActivity.this);
-                startActivity(intent);
-                finish();
-            }
-        });
+    private void startApp() {
+        Intent intent = MainMenuActivity.newIntent(WelcomeActivity.this);
+        startActivity(intent);
+        finish();
     }
 }
