@@ -1,4 +1,8 @@
 <resources>
+    <!-- Welcome -->
+    <string name="name_author">Developed by Kyle Locquiao</string>
+    <string name="skip_button">Skip</string>
+
     <!-- Main Menu -->
     <string name="app_name">Cat Catcher</string>
     <string name="main_menu">Main Menu</string>

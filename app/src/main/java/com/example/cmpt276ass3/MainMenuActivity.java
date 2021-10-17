@@ -1,5 +1,6 @@
 package com.example.cmpt276ass3;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,7 +19,7 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_main_menu);
 
         gameSettings = Settings.getInstance(this);
 
@@ -60,7 +61,10 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
-
+    public static Intent newIntent(Context c) {
+        Intent intent = new Intent(c, MainMenuActivity.class);
+        return intent;
+    }
 
 
 }
