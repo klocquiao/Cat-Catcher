@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -28,7 +29,7 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
     private static final String CURRENT_CAT_COUNT = "Current CAT Count";
     private static final String PREFS_DIMENSION = "DimensionPref";
     private static final String PREFS_CAT_COUNT = "CatCountPref";
-
+    private Button timesPlayed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,18 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
 
         createDropDownMenu();
         createRadioButtons();
+        setupTimesPlayed();
+    }
 
-        String str = getDimensionChoice(this);
-        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    private void setupTimesPlayed() {
+        timesPlayed = findViewById(R.id.clearButton);
+        timesPlayed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(OptionActivity.this, getString(R.string.clear_successful), Toast.LENGTH_SHORT).show();
+                GameActivity.clearSharedPrefs(OptionActivity.this);
+            }
+        });
     }
 
     private void createRadioButtons() {

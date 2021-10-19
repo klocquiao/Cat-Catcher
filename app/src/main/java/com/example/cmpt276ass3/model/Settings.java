@@ -13,9 +13,9 @@ import com.example.cmpt276ass3.OptionActivity;
 public class Settings {
     private static Settings instance;
     private static Context context;
-    private static int numberOfCats;
-    private static int numberOfRows;
-    private static int numberOfColumns;
+    private int numberOfCats;
+    private int numberOfRows;
+    private int numberOfColumns;
     private String dimension;
 
     private Settings(Context context) {

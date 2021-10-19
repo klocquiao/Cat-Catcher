@@ -14,11 +14,14 @@
     <string name="number_of_cats">Found %1$d of %2$d Cats</string>
     <string name="number_of_scans"># of Scans: %1$d</string>
     <string name="number_of_times_played">Times Played: %1$d</string>
+    <string name="high_score">High Score: %1$d</string>
+
 
     <!-- Settings -->
     <string name="option_title">Options</string>
     <string name="dimensions">Dimensions:</string>
     <string name="cat_count"># of Cats:</string>
+    <string name="clear_times_played">Clear Save Data</string>
 
 
     <!-- Winner Dialog-->
@@ -38,4 +41,5 @@
         for the main menu. </string>
 
     <string name="citation_text">grass.png by Alisa Atchison\nfound_cat.png by Alisa Atchison\npicture_of_cat by Kyle Locquiao</string>
+    <string name="clear_successful">Clear successful!</string>
 </resources>

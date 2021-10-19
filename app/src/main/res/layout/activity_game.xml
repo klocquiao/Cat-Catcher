@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberOfGamesStarted"
+        app:layout_constraintTop_toBottomOf="@+id/highScore"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -57,5 +57,18 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toEndOf="@+id/numberOfCats"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/highScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/gameCells"
+        app:layout_constraintEnd_toEndOf="@+id/numberOfGamesStarted"
+        app:layout_constraintStart_toStartOf="@+id/numberOfGamesStarted"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfGamesStarted" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,15 +24,21 @@ import androidx.fragment.app.FragmentManager;
 import com.example.cmpt276ass3.model.Game;
 import com.example.cmpt276ass3.model.Settings;
 
+import org.w3c.dom.Text;
+
 public class GameActivity extends AppCompatActivity {
 
-    private static int numberOfRows;
-    private static int numberOfColumns;
-    private static int numberOfCats;
-    private static int numberOfGamesStarted;
+    private int numberOfRows;
+    private int numberOfColumns;
+    private int numberOfCats;
+    private int numberOfGamesStarted;
+    private int highScore;
 
     private static final String CURRENT_GAMES_STARTED = "Current Games Started";
     private static final String PREFS_GAMES_STARTED = "GamesStartedPref";
+    private static final String PREFS_HIGH_SCORES = "HighScorePref";
+    private static String highScoreKey;
+
 
     private Settings gameSettings;
     private Button cellArray[][];
@@ -49,16 +55,19 @@ public class GameActivity extends AppCompatActivity {
         numberOfColumns = gameSettings.getNumberOfColumns();
         numberOfCats = gameSettings.getNumberOfCats();
 
+        highScoreKey = "" + numberOfRows * numberOfColumns + numberOfCats;
+        highScore = getHighScore(this);
+
         cellArray = new Button[numberOfRows][numberOfColumns];
         newGame = new Game(numberOfRows, numberOfColumns, numberOfCats);
 
+        updateHighScoreText();
         updateNumberOfScansText();
         updateNumberOfCatsText();
         populateButtons();
 
         numberOfGamesStarted = getGamesStartedCount(this);
         updateNumberOfSGamesStartedText();
-
 
         numberOfGamesStarted++;
         saveGamesStartedCount(numberOfGamesStarted);
@@ -159,6 +168,11 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    private void updateHighScoreText() {
+        TextView txtHighScore = (TextView) findViewById(R.id.highScore);
+        txtHighScore.setText(getString(R.string.high_score, highScore));
+    }
+
     private void updateNumberOfCatsText() {
         TextView catText = (TextView) findViewById(R.id.numberOfCats);
         catText.setText(getString(R.string.number_of_cats, newGame.getCatsFound(), numberOfCats));
@@ -183,13 +197,19 @@ public class GameActivity extends AppCompatActivity {
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
     }
 
-
     private void checkWinner() {
         if (newGame.getCatsFound() == numberOfCats) {
+            checkNewHighScore();
             FragmentManager manager = getSupportFragmentManager();
             GameFragment dialog = new GameFragment();
             dialog.setCancelable(false);
             dialog.show(manager, "WinnerDialog");
+        }
+    }
+
+    private void checkNewHighScore() {
+        if (highScore == 0 || newGame.getScansPerformed() < highScore) {
+            saveHighScore(newGame.getScansPerformed());
         }
     }
 
@@ -205,6 +225,25 @@ public class GameActivity extends AppCompatActivity {
         return prefs.getInt(CURRENT_GAMES_STARTED, 0);
     }
 
+    private void saveHighScore(int newHighScore) {
+        SharedPreferences prefs = this.getSharedPreferences(PREFS_HIGH_SCORES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(highScoreKey, newHighScore);
+        editor.apply();
+    }
+
+    public static int getHighScore(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_HIGH_SCORES, MODE_PRIVATE);
+        return prefs.getInt(highScoreKey, 0);
+    }
+
+    public static void clearSharedPrefs(Context context) {
+        SharedPreferences prefsTimesPlayed = context.getSharedPreferences(PREFS_GAMES_STARTED, MODE_PRIVATE);
+        SharedPreferences prefsScores = context.getSharedPreferences(PREFS_HIGH_SCORES, MODE_PRIVATE);
+
+        prefsTimesPlayed.edit().clear().commit();
+        prefsScores.edit().clear().commit();
+    }
 
     public static Intent newIntent(Context c) {
         Intent intent = new Intent(c, GameActivity.class);
