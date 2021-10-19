@@ -1,6 +1,7 @@
 package com.example.cmpt276ass3;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -182,12 +183,13 @@ public class GameActivity extends AppCompatActivity {
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
     }
 
+
     private void checkWinner() {
         if (newGame.getCatsFound() == numberOfCats) {
             FragmentManager manager = getSupportFragmentManager();
             GameFragment dialog = new GameFragment();
+            dialog.setCancelable(false);
             dialog.show(manager, "WinnerDialog");
-            finish();
         }
     }
 
