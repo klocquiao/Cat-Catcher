@@ -20,8 +20,8 @@ public class Settings {
 
     private Settings(Context context) {
         this.context = context;
-        updateDimensions();
         updateCatCount();
+        updateDimensions();
     }
 
     public static Settings getInstance(Context context) {
@@ -35,46 +35,35 @@ public class Settings {
         dimension = OptionActivity.getDimensionChoice(context);
         switch(dimension) {
             case("4 x 6") :
-                setNumberOfRows(4);
-                setNumberOfColumns(6);
+                this.numberOfRows = 4;
+                this.numberOfColumns = 6;
                 break;
             case("5 x 10") :
-                setNumberOfRows(5);
-                setNumberOfColumns(10);
+                this.numberOfRows = 5;
+                this.numberOfColumns = 10;
                 break;
             case("6 x 15") :
-                setNumberOfRows(6);
-                setNumberOfColumns(15);
+                this.numberOfRows = 6;
+                this.numberOfColumns = 15;
                 break;
         }
     }
 
     public void updateCatCount() {
-        setNumberOfCats(OptionActivity.getCatCountChoice(context));
+        this.numberOfCats = OptionActivity.getCatCountChoice(context);
     }
 
     public int getNumberOfRows() {
         return numberOfRows;
     }
 
-    private void setNumberOfRows(int numberOfRows) {
-        this.numberOfRows = numberOfRows;
-    }
-
     public int getNumberOfColumns() {
         return numberOfColumns;
-    }
-
-    private void setNumberOfColumns(int numberOfColumns) {
-        this.numberOfColumns = numberOfColumns;
     }
 
     public int getNumberOfCats() {
         return numberOfCats;
     }
 
-    private void setNumberOfCats(int numberOfCats) {
-        this.numberOfCats = numberOfCats;
-    }
 
 }

@@ -36,11 +36,9 @@ public class GameActivity extends AppCompatActivity {
     private static final String PREFS_HIGH_SCORES = "HighScorePref";
     private static String highScoreKey;
 
-
     private Settings gameSettings;
     private Button cellArray[][];
     private Game newGame;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +101,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
-
 
     private void cellButtonClicked(int row, int col) {
         Button button = cellArray[row][col];

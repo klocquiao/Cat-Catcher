@@ -16,7 +16,6 @@ import android.widget.Button;
 import com.example.cmpt276ass3.model.Settings;
 
 public class MainMenuActivity extends AppCompatActivity {
-
     private Settings gameSettings;
 
     @Override

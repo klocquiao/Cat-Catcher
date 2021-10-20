@@ -24,8 +24,8 @@ public class Game {
         this.numberOfRows = numberOfRows;
         this.numberOfColumns = numberOfColumns;
         this.numberOfCats = numberOfCats;
-        catsFound = 0;
-        scansPerformed = 0;
+        this.catsFound = 0;
+        this.scansPerformed = 0;
 
         shuffleFieldValues();
         populateField();
@@ -47,7 +47,6 @@ public class Game {
         Collections.shuffle(shuffler);
     }
 
-
     private void populateField() {
         field = new Cell[numberOfRows][numberOfColumns];
         for (int i = 0; i < numberOfRows; i++) {
@@ -64,16 +63,16 @@ public class Game {
         }
     }
 
-    public boolean reveal(int row, int column, boolean isScan) {
+    public boolean reveal(int row, int column, boolean isSetup) {
         boolean cellValue = field[row][column].isCat();
 
         if (cellValue == CAT) {
-            if(!isScan) {
+            if(!isSetup) {
                 catsFound++;
             }
             return CAT;
         }
-        if (!isScan) {
+        if (!isSetup) {
             scansPerformed++;
         }
         return NO_CAT;
