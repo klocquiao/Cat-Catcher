@@ -25,8 +25,8 @@ import com.example.cmpt276ass3.model.Settings;
 
 public class OptionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Settings gameSettings;
-    private static final String CURRENT_DIMENSION = "Current Dimension";
-    private static final String CURRENT_CAT_COUNT = "Current CAT Count";
+    private static final String KEY_DIMENSION = "Current Dimension";
+    private static final String KEY_CAT_COUNT = "Current Cat Count";
     private static final String PREFS_DIMENSION = "DimensionPref";
     private static final String PREFS_CAT_COUNT = "CatCountPref";
     private Button timesPlayed;
@@ -37,6 +37,7 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
         setContentView(R.layout.activity_option);
         gameSettings = Settings.getInstance(this);
 
+        //Initialize selectors
         createDropDownMenu();
         createRadioButtons();
         setupTimesPlayed();
@@ -54,9 +55,8 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     private void createRadioButtons() {
-        RadioGroup dimensionGroup = (RadioGroup) findViewById(R.id.dimensionSettings);
+        RadioGroup dimensionGroup = findViewById(R.id.dimensionSettings);
         String[] dimensionOptions = getResources().getStringArray((R.array.row_by_column));
-
 
         for (int i = 0; i < dimensionOptions.length; i++) {
             String dimensionOption = dimensionOptions[i];
@@ -84,7 +84,7 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
 
     //Code referenced from: https://developer.android.com/guide/topics/ui/controls/spinner#
     private void createDropDownMenu() {
-        Spinner catSpinner = (Spinner) findViewById(R.id.catCountSettings);
+        Spinner catSpinner = findViewById(R.id.catCountSettings);
         catSpinner.setOnItemSelectedListener(this);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -102,36 +102,36 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
         gameSettings.updateCatCount();
     }
 
-    public void onNothingSelected(AdapterView<?> parent) {}
-
     private void saveDimensionChoice(String dimensionOption) {
         SharedPreferences prefs = this.getSharedPreferences(PREFS_DIMENSION, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(CURRENT_DIMENSION, dimensionOption);
+        editor.putString(KEY_DIMENSION, dimensionOption);
         editor.apply();
     }
 
     public static String getDimensionChoice(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_DIMENSION, MODE_PRIVATE);
         String defaultDimension = context.getResources().getString(R.string.default_row_by_column);
-        return prefs.getString(CURRENT_DIMENSION, defaultDimension);
+        return prefs.getString(KEY_DIMENSION, defaultDimension);
     }
 
     private void saveCatCountChoice(int catCountOption) {
         SharedPreferences prefs = this.getSharedPreferences(PREFS_CAT_COUNT, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(CURRENT_CAT_COUNT, catCountOption);
+        editor.putInt(KEY_CAT_COUNT, catCountOption);
         editor.apply();
     }
 
     public static int getCatCountChoice(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_CAT_COUNT, MODE_PRIVATE);
         String defaultCatCount = context.getResources().getString(R.string.default_number_of_cats);
-        return prefs.getInt(CURRENT_CAT_COUNT, Integer.parseInt(defaultCatCount));
+        return prefs.getInt(KEY_CAT_COUNT, Integer.parseInt(defaultCatCount));
     }
 
     public static Intent newIntent(Context c) {
         Intent intent = new Intent(c, OptionActivity.class);
         return intent;
    }
+
+    public void onNothingSelected(AdapterView<?> parent) {}
 }

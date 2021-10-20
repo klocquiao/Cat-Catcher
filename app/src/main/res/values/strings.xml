@@ -16,22 +16,18 @@
     <string name="number_of_times_played">Times Played: %1$d</string>
     <string name="high_score">High Score: %1$d</string>
 
-
     <!-- Settings -->
     <string name="option_title">Options</string>
     <string name="dimensions">Dimensions:</string>
     <string name="cat_count"># of Cats:</string>
     <string name="clear_times_played">Clear Save Data</string>
 
-
     <!-- Winner Dialog-->
     <string name="winner_message">"Meow!" (Thanks for Finding us)</string>
     <string name="winner_message_header">You did it!</string>
 
-
     <!-- Help -->
     <string name="help_title">Help</string>
-
     <string name="about_text">Kyle Locquiao is an SFU undergraduate in the Software Systems program. Cat Catcher was independently developed
         for <a href="https://opencoursehub.cs.sfu.ca/bfraser/grav-cms/cmpt276/home/">CMPT 276 D2 (Fall 2021)</a>.
         Cat Catcher is a game that involves finding cats to win. Upon starting a game, the user is presented
@@ -39,7 +35,6 @@
         in that cells row and column. Once the counter on the top left is equal to the max amount of cats on the field, the user will be congratulated
         and the game will end. The user can control the amount of rows and columns on the field, as well as the number of cats, by accessing the settings
         for the main menu. </string>
-
-    <string name="citation_text">grass.png by Alisa Atchison\nfound_cat.png by Alisa Atchison\npicture_of_cat by Kyle Locquiao</string>
+    <string name="citation_text">grass.png by Alisa Atchison\nfound_cat.png by Alisa Atchison\npicture_of_cat.png by Kyle Locquiao</string>
     <string name="clear_successful">Clear successful!</string>
 </resources>

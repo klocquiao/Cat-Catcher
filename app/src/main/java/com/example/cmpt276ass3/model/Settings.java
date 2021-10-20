@@ -24,7 +24,6 @@ public class Settings {
         updateCatCount();
     }
 
-    //get context from parameter
     public static Settings getInstance(Context context) {
         if (instance == null) {
             instance = new Settings(context);

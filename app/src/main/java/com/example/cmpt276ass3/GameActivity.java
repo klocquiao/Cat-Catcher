@@ -1,7 +1,6 @@
 package com.example.cmpt276ass3;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -24,8 +23,6 @@ import androidx.fragment.app.FragmentManager;
 import com.example.cmpt276ass3.model.Game;
 import com.example.cmpt276ass3.model.Settings;
 
-import org.w3c.dom.Text;
-
 public class GameActivity extends AppCompatActivity {
 
     private int numberOfRows;
@@ -34,7 +31,7 @@ public class GameActivity extends AppCompatActivity {
     private int numberOfGamesStarted;
     private int highScore;
 
-    private static final String CURRENT_GAMES_STARTED = "Current Games Started";
+    private static final String KEY_GAMES_STARTED = "Current Games Started";
     private static final String PREFS_GAMES_STARTED = "GamesStartedPref";
     private static final String PREFS_HIGH_SCORES = "HighScorePref";
     private static String highScoreKey;
@@ -51,31 +48,28 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         gameSettings = Settings.getInstance(this);
 
+        //Retrieve necessary data
         numberOfRows = gameSettings.getNumberOfRows();
         numberOfColumns = gameSettings.getNumberOfColumns();
         numberOfCats = gameSettings.getNumberOfCats();
+        highScoreKey = getHighScoreKey();
+        highScore = getValueInPref(PREFS_HIGH_SCORES, highScoreKey, this);
+        numberOfGamesStarted = getValueInPref(PREFS_GAMES_STARTED, KEY_GAMES_STARTED, this);
 
-        highScoreKey = "" + numberOfRows * numberOfColumns + numberOfCats;
-        highScore = getHighScore(this);
-
+        //Create game field
         cellArray = new Button[numberOfRows][numberOfColumns];
         newGame = new Game(numberOfRows, numberOfColumns, numberOfCats);
+        populateButtons();
 
+        //Update textViews
         updateHighScoreText();
         updateNumberOfScansText();
         updateNumberOfCatsText();
-        populateButtons();
-
-        numberOfGamesStarted = getGamesStartedCount(this);
-        updateNumberOfSGamesStartedText();
-
-        numberOfGamesStarted++;
-        saveGamesStartedCount(numberOfGamesStarted);
-
+        updateNumberOfGamesStartedText();
     }
 
     private void populateButtons() {
-        TableLayout table = (TableLayout) findViewById(R.id.gameCells);
+        TableLayout table = findViewById(R.id.gameCells);
         for (int row = 0; row < numberOfRows; row++) {
             TableRow tableRow = new TableRow(this);
             tableRow.setLayoutParams(new TableLayout.LayoutParams(
@@ -101,7 +95,6 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         cellButtonClicked(FINAL_ROW, FINAL_COL);
-
                     }
                 });
 
@@ -111,24 +104,9 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void lockButtonSize() {
-        for (int row = 0; row < numberOfRows; row++) {
-            for (int col = 0; col < numberOfColumns; col++) {
-                Button button = cellArray[row][col];
-                int width = button.getWidth();
-                button.setMinWidth(width);
-                button.setMaxWidth(width);
-
-                int height = button.getHeight();
-                button.setMinHeight(height);
-                button.setMaxHeight(height);
-            }
-        }
-    }
 
     private void cellButtonClicked(int row, int col) {
         Button button = cellArray[row][col];
-
         lockButtonSize();
 
         if (newGame.reveal(row, col, false) == Game.CAT) {
@@ -145,6 +123,31 @@ public class GameActivity extends AppCompatActivity {
             button.setEnabled(false);
             updateNumberOfScansText();
         }
+    }
+
+    private void lockButtonSize() {
+        for (int row = 0; row < numberOfRows; row++) {
+            for (int col = 0; col < numberOfColumns; col++) {
+                Button button = cellArray[row][col];
+                int width = button.getWidth();
+                button.setMinWidth(width);
+                button.setMaxWidth(width);
+
+                int height = button.getHeight();
+                button.setMinHeight(height);
+                button.setMinHeight(height);
+                button.setMaxHeight(height);
+            }
+        }
+    }
+
+    private void scaleImageToCell(Button button) {
+        int newWidth = button.getWidth();
+        int newHeight = button.getHeight();
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.found_cat);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
+        Resources resource = getResources();
+        button.setBackground(new BitmapDrawable(resource, scaledBitmap));
     }
 
     private void updateScannedCells(int row, int col) {
@@ -169,32 +172,25 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void updateHighScoreText() {
-        TextView txtHighScore = (TextView) findViewById(R.id.highScore);
+        TextView txtHighScore = findViewById(R.id.highScore);
         txtHighScore.setText(getString(R.string.high_score, highScore));
     }
 
     private void updateNumberOfCatsText() {
-        TextView catText = (TextView) findViewById(R.id.numberOfCats);
+        TextView catText = findViewById(R.id.numberOfCats);
         catText.setText(getString(R.string.number_of_cats, newGame.getCatsFound(), numberOfCats));
     }
 
     private void updateNumberOfScansText() {
-        TextView scanText = (TextView) findViewById(R.id.numberOfScans);
+        TextView scanText = findViewById(R.id.numberOfScans);
         scanText.setText(getString(R.string.number_of_scans, newGame.getScansPerformed()));
     }
 
-    private void updateNumberOfSGamesStartedText() {
-        TextView gamesStartedText = (TextView) findViewById(R.id.numberOfGamesStarted);
+    private void updateNumberOfGamesStartedText() {
+        TextView gamesStartedText = findViewById(R.id.numberOfGamesStarted);
         gamesStartedText.setText(getString(R.string.number_of_times_played, numberOfGamesStarted));
-    }
-
-    private void scaleImageToCell(Button button) {
-        int newWidth = button.getWidth();
-        int newHeight = button.getHeight();
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.found_cat);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
-        Resources resource = getResources();
-        button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+        numberOfGamesStarted++;
+        saveValueInPref(PREFS_GAMES_STARTED, KEY_GAMES_STARTED, numberOfGamesStarted);
     }
 
     private void checkWinner() {
@@ -209,38 +205,30 @@ public class GameActivity extends AppCompatActivity {
 
     private void checkNewHighScore() {
         if (highScore == 0 || newGame.getScansPerformed() < highScore) {
-            saveHighScore(newGame.getScansPerformed());
+            saveValueInPref(PREFS_HIGH_SCORES, highScoreKey, newGame.getScansPerformed());
         }
     }
 
-    private void saveGamesStartedCount(int gamesStartedCount) {
-        SharedPreferences prefs = this.getSharedPreferences(PREFS_GAMES_STARTED, MODE_PRIVATE);
+    private String getHighScoreKey() {
+        String key = "" + numberOfRows * numberOfColumns + numberOfCats;
+        return key;
+    }
+
+    private void saveValueInPref(String pref, String key, int gamesStartedCount) {
+        SharedPreferences prefs = this.getSharedPreferences(pref, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(CURRENT_GAMES_STARTED, gamesStartedCount);
+        editor.putInt(key, gamesStartedCount);
         editor.apply();
     }
 
-    public static int getGamesStartedCount(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_GAMES_STARTED, MODE_PRIVATE);
-        return prefs.getInt(CURRENT_GAMES_STARTED, 0);
-    }
-
-    private void saveHighScore(int newHighScore) {
-        SharedPreferences prefs = this.getSharedPreferences(PREFS_HIGH_SCORES, MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(highScoreKey, newHighScore);
-        editor.apply();
-    }
-
-    public static int getHighScore(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_HIGH_SCORES, MODE_PRIVATE);
-        return prefs.getInt(highScoreKey, 0);
+    public static int getValueInPref(String pref, String key, Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(pref, MODE_PRIVATE);
+        return prefs.getInt(key, 0);
     }
 
     public static void clearSharedPrefs(Context context) {
         SharedPreferences prefsTimesPlayed = context.getSharedPreferences(PREFS_GAMES_STARTED, MODE_PRIVATE);
         SharedPreferences prefsScores = context.getSharedPreferences(PREFS_HIGH_SCORES, MODE_PRIVATE);
-
         prefsTimesPlayed.edit().clear().commit();
         prefsScores.edit().clear().commit();
     }

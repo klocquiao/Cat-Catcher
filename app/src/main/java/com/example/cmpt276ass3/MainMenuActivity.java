@@ -23,16 +23,16 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
         gameSettings = Settings.getInstance(this);
 
+        //Initialize main menu buttons
         startGame();
         startOption();
         startHelp();
     }
 
     public void startGame() {
-        Button startButton = (Button) findViewById(R.id.startButton);
+        Button startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +43,7 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     public void startOption() {
-        Button startButton = (Button) findViewById(R.id.optionButton);
+        Button startButton = findViewById(R.id.optionButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +54,7 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     public void startHelp() {
-        Button startButton = (Button) findViewById(R.id.helpButton);
+        Button startButton = findViewById(R.id.helpButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

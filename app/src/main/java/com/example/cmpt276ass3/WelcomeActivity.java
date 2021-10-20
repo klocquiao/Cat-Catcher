@@ -9,7 +9,6 @@ package com.example.cmpt276ass3;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -25,36 +24,38 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button startButton;
     private Handler handler;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        appTitle = (TextView) findViewById(R.id.txtAppName);
-        runningCat = (ImageView) findViewById(R.id.welcomeImage);
-        startButton = (Button) findViewById(R.id.skipButton);
-        initSkip();
-        playAnimation();
+        appTitle = findViewById(R.id.txtAppName);
+        runningCat = findViewById(R.id.welcomeImage);
+        startButton = findViewById(R.id.skipButton);
 
-        //Referenced: https://stackoverflow.com/questions/18103814/close-an-activity-after-10-seconds
+        initSkipButton();
+        autoSkipIn10Seconds();
+        playAnimation();
+    }
+
+    private void initSkipButton() {
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handler.removeCallbacksAndMessages(null);
+                startApp();
+            }
+        });
+    }
+
+    //Referenced: https://stackoverflow.com/questions/18103814/close-an-activity-after-10-seconds
+    private void autoSkipIn10Seconds() {
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 startApp();
             }
         }, 10000);
-    }
-
-    private void initSkip() {
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handler.removeCallbacksAndMessages(null);
-
-                startApp();
-            }
-        });
     }
 
     //Referenced: https://www.youtube.com/watch?v=xd3VtBAqtRo
@@ -70,4 +71,5 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
 }
